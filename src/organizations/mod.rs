@@ -60,6 +60,16 @@ impl<C: Clone + Connect + 'static> Organizations<C> {
     pub fn list(&self) -> Future<Vec<Org>> {
         self.github.get(&self.path(""))
     }
+
+    fn path_all(&self, more: &str) -> String {
+        format!("/organizations{}", more)
+    }
+
+    /// list all organizations
+    /// https://developer.github.com/v3/orgs/#list-all-organizations
+    pub fn list_all(&self) -> Future<Vec<Org>> {
+        self.github.get(&self.path_all(""))
+    }
 }
 
 pub struct UserOrganizations<C>
